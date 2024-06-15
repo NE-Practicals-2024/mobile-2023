@@ -1,23 +1,11 @@
 import { Router } from "express";
-import authRouter from "./auth.route";
-import userRouter from "./user.route";
+import tokenRouter from "./token.route";
 
 const router = Router()
 
-router.use("/auth", authRouter
+router.use("/token", tokenRouter
     /*
-        #swagger.tags = ['Auth']
-        #swagger.security = [{
-                "bearerAuth": []
-        }] 
-    */
-)
-router.use("/user", userRouter
-    /*
-        #swagger.tags = ['Users']
-        #swagger.security = [{
-                "bearerAuth": []
-        }] 
+        #swagger.tags = ['Tokens']
     */
 )
 export default router

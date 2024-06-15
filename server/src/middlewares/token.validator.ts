@@ -1,8 +1,7 @@
-// src/middleware/validation.ts
-import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
-import { NextFunction, Request, Response } from 'express';
-import ServerResponse from '../utils/ServerResponse';
+import { plainToInstance } from "class-transformer";
+import { NextFunction, Request, Response } from "express";
+import ServerResponse from "../utils/ServerResponse";
+import { validate } from "class-validator";
 
 export function validationMiddleware<T>(
     type: any,

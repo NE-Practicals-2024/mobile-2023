@@ -3,31 +3,20 @@ import swaggerAutogen from 'swagger-autogen';
 const doc = {
     info: {
         version: '1.0.0',
-        title: 'NE NodeJS Rest API',
+        title: 'EUCL Tokens Rest API',
         description: ''
     },
-    host: 'localhost:5006',
+    host: 'localhost:5009',
     basePath: '/api/v1',
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],
     tags: [
         {
-            name: 'Auth',
-            description: 'Authentication endpoints'
-        },
-        {
-            name: 'Users',
-            description: 'Users endpoints'
+            name: 'Tokens',
+            description: 'Token Handling endpoints'
         },
     ],
-    securityDefinitions: {
-        bearerAuth: {
-            type: 'apiKey',
-            name: 'Authorization',
-            in: 'header'
-        }
-    },
     definitions: {}
 };
 

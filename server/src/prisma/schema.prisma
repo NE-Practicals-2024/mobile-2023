@@ -7,44 +7,22 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-enum Role {
-    ADMIN // The application admin
-    USER // This is a compuser
+enum TokenStatus {
+    USED
+    NEW
+    EXPIRED
 
-    @@map("roles")
+    @@map("token_statuses")
 }
 
-enum VerificationStatus {
-    VERIFIED
-    PENDING
-    UNVERIFIED
+model PurchasedToken {
+    id            String      @id @unique @default(uuid())
+    meterNumber   String      @map("meter_number") @db.VarChar(6)
+    token         String      @unique @map("token") @db.VarChar(8)
+    amount        Int
+    tokenDays     Int         @map("token_value_days")
+    tokenStatus   TokenStatus @default(NEW) @map("token_status")
+    purchasedDate DateTime    @default(now()) @map("purchased_date")
 
-    @@map("verification_status")
-}
-
-enum PasswordResetStatus {
-    PENDING
-    IDLE
-
-    @@map("password_reset_status")
-}
-
-model User {
-    id                   String              @id @default(uuid())
-    names                String
-    email                String              @unique
-    telephone            String?             @unique
-    password             String
-    profilePicture       String              @default("https://firebasestorage.googleapis.com/v0/b/relaxia-services.appspot.com/o/relaxia-profiles%2Fblank-profile-picture-973460_960_720.webp?alt=media") @map("profile_picture")
-    role                 Role                @default(USER)
-    verificationStatus   VerificationStatus  @default(UNVERIFIED) @map("verification_status")
-    verificationCode     String?             @map("verification_code")
-    verificationExpires  DateTime?           @map("verification_expires")
-    passwordResetStatus  PasswordResetStatus @default(IDLE) @map("password_reset_status")
-    passwordResetCode    String?             @map("password_reset_code")
-    passwordResetExpires DateTime?           @map("password_reset_expires")
-    createdAt            DateTime            @default(now()) @map("created_at")
-    updatedAt            DateTime            @updatedAt @map("updated_at")
-
-    @@map("users")
+    @@map("purchased_tokens")
 }
