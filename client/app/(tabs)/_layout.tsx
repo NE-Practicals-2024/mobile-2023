@@ -1,34 +1,41 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
+      initialRouteName='purchase'
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#1967D2',
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="index"
+        name="validate"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          title: 'Validate',
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name='checkcircleo' size={24} color={focused ? "#1967D2" : "black"} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="index"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: 'Purchase',
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons name='payment' size={24} color={focused ? "#1967D2" : "black"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tokens"
+        options={{
+          title: 'Tokens',
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons name="generating-tokens" size={24} color={focused ? "#1967D2" : "black"} />
           ),
         }}
       />
