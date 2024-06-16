@@ -15,7 +15,7 @@ const validateToken = async (req: Request, res: Response) => {
         expirationDate.setDate(expirationDate.getDate() + (purchasedToken?.tokenDays as number))
         const currentDate: any = new Date();
         const remainingDays = Math.ceil((expirationDate - currentDate) / (1000 * 60 * 60 * 24));
-        
+
         if (remainingDays < 0) {
             const info = {
                 token: purchasedToken.token,

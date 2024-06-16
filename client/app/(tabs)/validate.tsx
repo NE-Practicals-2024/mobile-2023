@@ -11,7 +11,6 @@ import * as yup from 'yup';
 
 export default function Validate() {
 
-
   const [loading, setLoading] = useState<boolean>(false)
   const [tokenInfo, setTokenInfo] = useState<ITokenInfo>({
     remainingDays: 0,
