@@ -25,6 +25,11 @@ class ServerResponse {
         return res.status(400).json(new ServerResponse(false, message, data, 400))
     }
 
+    static notFound(res: Response, message: string, data?: any | null) {
+        return res.status(404).json(new ServerResponse(false, message, data, 404))
+    }
+
+
     static unauthenticated(res: Response, message: string, data?: any | null) {
         return res.status(401).json(new ServerResponse(false, message, data, 401))
     }

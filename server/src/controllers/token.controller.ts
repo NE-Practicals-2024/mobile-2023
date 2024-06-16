@@ -10,13 +10,22 @@ const validateToken = async (req: Request, res: Response) => {
                 token
             }
         })
+        if (!purchasedToken) return ServerResponse.notFound(res, "Token not found")
         const expirationDate: any = new Date(purchasedToken?.purchasedDate as Date)
         expirationDate.setDate(expirationDate.getDate() + (purchasedToken?.tokenDays as number))
         const currentDate: any = new Date();
         const remainingDays = Math.ceil((expirationDate - currentDate) / (1000 * 60 * 60 * 24));
+        
+        if (remainingDays < 0) {
+            const info = {
+                token: purchasedToken.token,
+                remainingDays: 0
+            }
+            return ServerResponse.success(res, "Token expired", { info })
+        }
 
         const info = {
-            token,
+            token: purchasedToken.token,
             remainingDays
         }
         return ServerResponse.success(res, "Token info fetched", { info })
@@ -24,7 +33,7 @@ const validateToken = async (req: Request, res: Response) => {
         return ServerResponse.error(res, "Error occured", error)
     }
 }
-const purchaseToken = async (req: Request, res: Response) => {
+const purchaseNewToken = async (req: Request, res: Response) => {
     try {
         const { meter, amount } = req.body
         const token = await generateToken();
@@ -35,7 +44,7 @@ const purchaseToken = async (req: Request, res: Response) => {
         const purchasedToken = await prisma.purchasedToken.create({
             data: {
                 meterNumber: meter,
-                amount,
+                amount: parseInt(amount),
                 tokenDays,
                 token: token as string
             }
@@ -82,7 +91,7 @@ const generateToken = async () => {
 
 const tokenController = {
     validateToken,
-    purchaseToken,
+    purchaseNewToken,
     getTokensByMeterNumber
 }
 

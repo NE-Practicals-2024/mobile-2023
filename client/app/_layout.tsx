@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { ToastProvider } from 'react-native-toast-notifications'
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,9 +23,11 @@ export default function RootLayout() {
   }
 
   return (
+    <ToastProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+    </ToastProvider>
   );
 }

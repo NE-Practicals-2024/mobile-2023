@@ -6,6 +6,6 @@ const tokenRouter = Router()
 
 tokenRouter.get("/validate/:token", tokenController.validateToken)
 tokenRouter.get("/by-meter-number/:meter", tokenController.getTokensByMeterNumber)
-tokenRouter.post("/purchase", [validationMiddleware(PurchaseTokenDTO)], tokenController.purchaseToken)
+tokenRouter.post("/purchase", [validationMiddleware(PurchaseTokenDTO)], tokenController.purchaseNewToken)
 
 export default tokenRouter;
